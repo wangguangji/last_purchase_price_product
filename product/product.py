@@ -28,7 +28,7 @@ class product_last_purchase_price(osv.osv):
     
     _columns = {
         'product_id': fields.many2one('product.template', u'产品', required=True, ondelete='cascade', select=True, readonly=True),        
-        'price':fields.integer(u'价格',required=True),
+        'price':fields.float(u'价格',digits_compute=dp.get_precision('Product Price'),required=True),
         'partner_id': fields.many2one('res.partner', u'供应商', required=True),
         'is_last':fields.boolean(u'最后的价格')
     }
