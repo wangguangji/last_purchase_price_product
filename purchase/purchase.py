@@ -13,7 +13,8 @@ class purchase_order_line(osv.osv):
                                                                     partner_id, date_order=False, fiscal_position_id=False, date_planned=False,
                                                                     name=False, price_unit=False, context=None)
         product_product = self.pool.get('product.product')
-        context_partner = context.copy()
+        if context:
+            context_partner = context.copy()
         if product_id:
             product = product_product.browse(cr, uid, product_id, context=context_partner)
             if product.is_last_purchase_price:
