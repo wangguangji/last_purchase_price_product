@@ -24,9 +24,10 @@
                 <notebook position="inside">
                     <page string="最后采购信息" >
                              <field name="purchase_price_ids">
-                                <tree string="最后采购信息" >
+                                <tree string="最后采购信息" colors="green:is_last">
                                     <field name="partner_id" />
                                     <field name="price" />
+                                    <field name="is_last" />
                                 </tree>
                             </field>
                     </page>
