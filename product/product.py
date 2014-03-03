@@ -32,11 +32,16 @@ class product_last_purchase_price(osv.osv):
         'partner_id': fields.many2one('res.partner', u'供应商', required=True),
         'is_last':fields.boolean(u'最后的价格')
     }
-    
+    _defaults = {
+        'is_last':False,
+    }
     
     def update_or_create_using_purchse_price(self, cr, uid, partner_id,product_id,price, context=None):
         ids = self.search(cr,uid,[('product_id','=',product_id),('partner_id','=',partner_id)])
+        other_ids = self.search(cr,uid,[('product_id','=',product_id),('partner_id','<>',partner_id)])
+        if other_ids:
+            self.write(cr, uid, other_ids, {'is_last':False})
         if ids:
-            return self.write(cr, uid, ids, {'price': price})
+            self.write(cr, uid, ids, {'price': price,'is_last':True})
         else:
-            return self.create(cr, uid, {'product_id':product_id,'price':price,'partner_id':partner_id}, context)
+            return self.create(cr, uid, {'product_id':product_id,'price':price,'partner_id':partner_id,'is_last':True}, context)
